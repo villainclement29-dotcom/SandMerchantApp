@@ -20,7 +20,7 @@ export default function Connexion() {
       return;
     }
 
-    navigate("/FirstConnexion");
+    navigate("/home");
   };
 
   // REGISTER

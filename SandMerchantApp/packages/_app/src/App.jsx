@@ -1,25 +1,33 @@
 import { useRoutes } from "raviger";
 import Connexion from "./Connexion/Connexion";
 import { FirstConnexion } from "./FirstConnexion/FirstConnexion";
-import bg from "/StarBackground.png";
+import { Home } from "./Home/Home";
+import starsBg from "/StarBackground.png";
+import homeBg from "/3VChmbre.jpg"; // <-- ton image large en 3 parties
+import { BackgroundLayout } from "../../base/components/BackgroundLayout";
+import { Chapter } from "../../base/components/Chapter";
 
 export function App() {
   const route = useRoutes({
-    "/": () => <Connexion />,
-    "/FirstConnexion": () => <FirstConnexion />,
-    "/home": () => <Home />,
+    "/": () => (
+      <BackgroundLayout bg={starsBg}>
+        <Connexion />
+      </BackgroundLayout>
+    ),
+
+    "/FirstConnexion": () => (
+      <BackgroundLayout bg={starsBg}>
+        <FirstConnexion />
+      </BackgroundLayout>
+    ),
+
+    "/home": () => <Home bg={homeBg} />,
+    "/chapter": () => (
+      <BackgroundLayout bg={starsBg}>
+        <Chapter />
+      </BackgroundLayout>
+    ),
   });
-  return (
-    <main
-      style={{
-        minHeight: "100vh",
-        backgroundImage: `url(${bg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {route}
-    </main>
-  );
+
+  return route;
 }
