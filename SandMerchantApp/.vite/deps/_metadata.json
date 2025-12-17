@@ -1,0 +1,40 @@
+{
+  "hash": "2492f191",
+  "configHash": "939891db",
+  "lockfileHash": "adf998ea",
+  "browserHash": "3048f285",
+  "optimized": {
+    "@radix-ui/themes": {
+      "src": "../../node_modules/@radix-ui/themes/dist/esm/index.js",
+      "file": "@radix-ui_themes.js",
+      "fileHash": "38dc2f6e",
+      "needsInterop": false
+    },
+    "raviger": {
+      "src": "../../node_modules/raviger/dist/module.js",
+      "file": "raviger.js",
+      "fileHash": "d47a3a81",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "2cd28dcd",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "f3c74742",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-HVBI3IWG": {
+      "file": "chunk-HVBI3IWG.js"
+    },
+    "chunk-BGO6OVE5": {
+      "file": "chunk-BGO6OVE5.js"
+    }
+  }
+}

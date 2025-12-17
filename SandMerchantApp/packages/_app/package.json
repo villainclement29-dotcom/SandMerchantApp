@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/themes": "^3.2.1",
+    "@supabase/supabase-js": "^2.87.3",
+    "raviger": "^5.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
