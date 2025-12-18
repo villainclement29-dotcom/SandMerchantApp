@@ -9,7 +9,7 @@ import {
   equip,
   prevPage,
   nextPage,
-} from "../../store/wardrobestore";
+} from "../../store/wardrobeStore";
 
 // ✅ Tu peux remplacer ces datas par les tiennes + tes images
 const CATEGORIES = [
