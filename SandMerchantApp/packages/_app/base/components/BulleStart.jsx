@@ -1,13 +1,11 @@
 import { useMemo, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 
-export function Bulle({
+export function BulleStart({
   slides = [],
   startId,
   onChoice,
   choices = [],
-
-  // ✅ nouveau: callback quand on clique le CTA de l’overlay
   onOverlayCta,
 }) {
   const orderedIds = useMemo(() => slides.map((s) => String(s.id)), [slides]);
@@ -20,7 +18,6 @@ export function Bulle({
   }, [slides.length, startId, orderedIds]);
 
   const [index, setIndex] = useState(initialIndex);
-
   const [overlaySlide, setOverlaySlide] = useState(null);
 
   if (!slides.length) return null;
@@ -43,7 +40,7 @@ export function Bulle({
       id: "__help__",
       title: null,
       text: "Vous avez gagné\n\n10 ✨\n\npoussières de sable jaune",
-      cta: "MA CHAMBRE", // ✅ texte du bouton overlay
+      cta: "MA CHAMBRE",
     });
   };
 
@@ -59,9 +56,11 @@ export function Bulle({
 
   const handleCta = () => {
     if (overlaySlide) {
-      // ✅ si un handler est fourni, on l’appelle (sinon on ferme)
       if (onOverlayCta) return onOverlayCta(overlaySlide);
       return closeOverlay();
+    }
+    if (baseSlide.cta === "COMMENCER") {
+      return onOverlayCta?.(baseSlide);
     }
     next();
   };
@@ -69,47 +68,21 @@ export function Bulle({
   return (
     <div
       style={{
-        zIndex: "10",
+        zIndex: 10,
         position: "relative",
-        width: 370,
-        height: 340,
+        width: 351,
+        height: 366,
         backgroundColor: "#001936",
         border: "2px solid rgba(255,225,73,0.7)",
         borderRadius: 14,
-        padding: "22px",
+        padding: 22,
         color: "white",
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
       }}
     >
-      {/* “pointe” de la bulle */}
-      <div
-        style={{
-          position: "absolute",
-          right: 29,
-          bottom: -35,
-          width: 0,
-          height: 0,
-          borderLeft: "2px solid transparent",
-          borderRight: "39px solid transparent",
-          borderTop: "38px solid rgb(0, 25, 54)",
-          filter: "drop-shadow(-1px 4px 0 rgba(255,225,73,0.7))",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          right: 36,
-          bottom: -20,
-          width: 0,
-          height: 0,
-          borderLeft: "19px solid transparent",
-          borderRight: "19px solid transparent",
-          borderTop: "19px solid rgba(255,225,73,0.7)",
-          zIndex: -1,
-        }}
-      />
+      {/* ✅ PLUS DE QUEUE DE BULLE */}
 
       {/* Contenu */}
       <div style={{ flex: 1, overflow: "hidden" }}>
@@ -120,13 +93,23 @@ export function Bulle({
               fontWeight: 700,
               marginBottom: 10,
               color: "#fff",
+              fontFamily: "serif",
+              letterSpacing: 1,
+              textTransform: "uppercase",
             }}
           >
             {slide.title}
           </div>
         ) : null}
 
-        <div style={{ lineHeight: 1.5, fontSize: 16, whiteSpace: "pre-line" }}>
+        <div
+          style={{
+            lineHeight: 1.5,
+            fontSize: 16,
+            whiteSpace: "pre-line",
+            color: "#E9F0F6",
+          }}
+        >
           {slide.text}
         </div>
       </div>
@@ -140,7 +123,7 @@ export function Bulle({
           gap: 10,
         }}
       >
-        {/* ✅ Overlay => bouton "MA CHAMBRE" */}
+        {/* Overlay */}
         {overlaySlide ? (
           <button
             onClick={handleCta}
@@ -154,7 +137,6 @@ export function Bulle({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: 10,
             }}
           >
             <span style={{ fontFamily: "serif", letterSpacing: 1 }}>
@@ -168,7 +150,6 @@ export function Bulle({
               gap: 12,
               justifyContent: "center",
               width: "100%",
-              flexWrap: "nowrap",
             }}
           >
             {currentChoices.map((c) => (
@@ -182,7 +163,6 @@ export function Bulle({
                   backgroundColor: "#E6C14F",
                   border: "1px solid #C8A43A",
                   cursor: "pointer",
-                  padding: "0 14px",
                 }}
               >
                 <span style={{ fontFamily: "serif", letterSpacing: 1 }}>

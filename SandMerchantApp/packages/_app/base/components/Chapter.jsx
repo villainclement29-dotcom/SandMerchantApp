@@ -144,9 +144,9 @@ export function Chapter() {
         alt="Marchand de sable"
         style={{
           position: "absolute",
-          left: -7,
+          left: 0,
           bottom: 0,
-          width: 434,
+          width: 302,
           height: "auto",
           pointerEvents: "none",
           userSelect: "none",

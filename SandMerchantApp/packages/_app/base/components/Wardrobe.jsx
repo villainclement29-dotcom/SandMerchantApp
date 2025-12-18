@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import { navigate } from "raviger";
-import { HeaderBar } from "./HeaderBar"; // adapte le chemin si besoin
+import { HeaderBar } from "./HeaderBar";
 import {
   $wardrobe,
   setCategory,
@@ -11,16 +11,14 @@ import {
   nextPage,
 } from "../../store/wardrobeStore";
 
-// ✅ Tu peux remplacer ces datas par les tiennes + tes images
 const CATEGORIES = [
-  { id: "hat", icon: "/icons/hat.png", label: "Chapeau" },
-  { id: "top", icon: "/icons/top.png", label: "Haut" },
-  { id: "pants", icon: "/icons/pants.png", label: "Pantalon" },
-  { id: "shoes", icon: "/icons/shoes.png", label: "Chaussures" },
-  { id: "bag", icon: "/icons/bag.png", label: "Sac" },
+  { id: "hat", icon: "/hat.png", label: "Chapeau" },
+  { id: "top", icon: "/shirt.png", label: "Haut" },
+  { id: "pants", icon: "/trouser.png", label: "Pantalon" },
+  { id: "shoes", icon: "/shoes.png", label: "Chaussures" },
+  { id: "bag", icon: "/accessories.png", label: "accessoires" },
 ];
 
-// Chaque item = une image “overlay” qui se pose sur le perso
 const ITEMS = {
   hat: [
     { id: "hat_1", thumb: "/thumbs/hat_1.png", overlay: "/overlays/hat_1.png" },
@@ -28,16 +26,12 @@ const ITEMS = {
     { id: "hat_3", thumb: "/thumbs/hat_3.png", overlay: "/overlays/hat_3.png" },
   ],
   top: [
-    { id: "top_1", thumb: "/thumbs/top_1.png", overlay: "/overlays/top_1.png" },
+    { id: "top_1", thumb: "/tshirt1_.png", overlay: "/tshirt1_.png" },
     { id: "top_2", thumb: "/thumbs/top_2.png", overlay: "/overlays/top_2.png" },
     { id: "top_3", thumb: "/thumbs/top_3.png", overlay: "/overlays/top_3.png" },
   ],
   pants: [
-    {
-      id: "pants_1",
-      thumb: "/thumbs/pants_1.png",
-      overlay: "/overlays/pants_1.png",
-    },
+    { id: "pants_1", thumb: "/pentalon1_.png", overlay: "/pentalon1_.png" },
     {
       id: "pants_2",
       thumb: "/thumbs/pants_2.png",
@@ -67,10 +61,44 @@ const ITEMS = {
     },
   ],
   bag: [
-    { id: "bag_1", thumb: "/thumbs/bag_1.png", overlay: "/overlays/bag_1.png" },
+    { id: "bag_1", thumb: "/combi_.png", overlay: "/combi_.png" },
     { id: "bag_2", thumb: "/thumbs/bag_2.png", overlay: "/overlays/bag_2.png" },
     { id: "bag_3", thumb: "/thumbs/bag_3.png", overlay: "/overlays/bag_3.png" },
   ],
+};
+
+/**
+ * ✅ Rectangle (en %) de la zone où se trouve le garçon dans le décor
+ * (ancré sur la "scene" plein écran, donc ne bouge plus avec le drawer)
+ */
+const BOY_BOX = {
+  left: "36%",
+  top: "18%",
+  width: "34%",
+  height: "70%",
+};
+
+/**
+ * ✅ Ajustements par catégorie (dans le BOY_BOX)
+ * (tu peux ajuster ces valeurs au pixel près ensuite)
+ */
+const OVERLAY_POS = {
+  hat: { top: "-2%", left: "0%", width: "100%", height: "40%" },
+  top: { top: "15%", left: "16%", width: "100%", height: "45%" },
+  pants: { top: "30%", left: "9%", width: "103%", height: "76%" },
+  shoes: { top: "78%", left: "0%", width: "100%", height: "22%" },
+  bag: { top: "21%", left: "0%", width: "125%", height: "69%" },
+};
+
+/**
+ * ✅ Ordre de rendu : t-shirt au-dessus du pantalon
+ */
+const OVERLAY_Z = {
+  hat: 50,
+  top: 40,
+  bag: 60,
+  pants: 30,
+  shoes: 20,
 };
 
 export function Wardrobe() {
@@ -89,7 +117,6 @@ export function Wardrobe() {
 
   const page = pages[s.pageIndex] ?? pages[0];
 
-  // overlay images à afficher sur le perso
   const equippedOverlays = useMemo(() => {
     const overlays = [];
     for (const [cat, itemId] of Object.entries(s.equipped)) {
@@ -97,6 +124,8 @@ export function Wardrobe() {
       const found = (ITEMS[cat] ?? []).find((it) => it.id === itemId);
       if (found?.overlay) overlays.push({ cat, src: found.overlay });
     }
+    // Optionnel: tri par z-index (robuste même si l'ordre d'Object.entries change)
+    overlays.sort((a, b) => (OVERLAY_Z[a.cat] ?? 0) - (OVERLAY_Z[b.cat] ?? 0));
     return overlays;
   }, [s.equipped]);
 
@@ -107,28 +136,73 @@ export function Wardrobe() {
         width: "100%",
         overflow: "hidden",
         position: "relative",
-        backgroundImage: "url(/room.png)", // ✅ ton image de fond (la chambre)
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        display: "grid",
-        gridTemplateRows: "auto 1fr auto",
+        // ✅ IMPORTANT : le décor est rendu par BackgroundLayout, donc pas de background ici
       }}
     >
-      {/* ✅ Top bar existante */}
-      <div style={{ padding: "10px 12px 0" }}>
-        <HeaderBar />
+      {/* ✅ SCENE FIXE plein écran : repère immuable pour les overlays */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 1 }}>
+        {/* ✅ ANCRE : zone du garçon */}
+        <div
+          style={{
+            position: "absolute",
+            left: BOY_BOX.left,
+            top: BOY_BOX.top,
+            width: BOY_BOX.width,
+            height: BOY_BOX.height,
+            pointerEvents: "none",
+          }}
+        >
+          {equippedOverlays.map((o) => {
+            const p = OVERLAY_POS[o.cat] ?? {
+              top: "0%",
+              left: "0%",
+              width: "100%",
+              height: "100%",
+            };
+
+            return (
+              <img
+                key={o.cat}
+                src={o.src}
+                alt=""
+                style={{
+                  position: "absolute",
+                  top: p.top,
+                  left: p.left,
+                  width: p.width,
+                  height: p.height,
+                  objectFit: "contain",
+                  userSelect: "none",
+                  pointerEvents: "none",
+                  zIndex: OVERLAY_Z[o.cat] ?? 10,
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
 
-      {/* Zone centrale */}
-      <div style={{ position: "relative" }}>
-        {/* Bouton retour (haut gauche) */}
+      {/* ✅ UI par-dessus (ne doit pas influencer le repère des overlays) */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 10,
+          pointerEvents: "auto",
+        }}
+      >
+        {/* Header */}
+        <div style={{ padding: "10px 12px 0" }}>
+          <HeaderBar />
+        </div>
+
+        {/* Bouton retour */}
         <button
           onClick={() => navigate("/home")}
           style={{
             position: "absolute",
             left: 12,
-            top: 10,
+            top: 89,
             width: 52,
             height: 52,
             borderRadius: 12,
@@ -145,13 +219,13 @@ export function Wardrobe() {
           </span>
         </button>
 
-        {/* Bouton settings (haut droite) */}
-        <button
+        {/* Settings */}
+        {/* <button
           onClick={() => navigate("/settings")}
           style={{
             position: "absolute",
             right: 12,
-            top: 18,
+            top: 89,
             width: 40,
             height: 40,
             borderRadius: 999,
@@ -164,14 +238,14 @@ export function Wardrobe() {
           aria-label="Options"
         >
           <span style={{ color: "#FFE149", fontSize: 18 }}>⚙</span>
-        </button>
+        </button> */}
 
-        {/* Colonne catégories (gauche) */}
+        {/* Colonne catégories */}
         <div
           style={{
             position: "absolute",
             left: 12,
-            top: 90,
+            top: 170,
             width: 72,
             borderRadius: 12,
             backgroundColor: "rgba(0,25,54,0.72)",
@@ -215,165 +289,131 @@ export function Wardrobe() {
           })}
         </div>
 
-        {/* Perso + overlays (centré) */}
+        {/* Drawer bas */}
         <div
           style={{
             position: "absolute",
-            left: "50%",
-            top: 80,
-            transform: "translateX(-50%)",
-            width: 250,
-            height: 520,
-            display: "grid",
-            placeItems: "center",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: s.openDrawer ? 140 : 0,
+            transition: "height 220ms ease",
+            overflow: "hidden",
+            backgroundColor: "rgba(0,25,54,0.85)",
+            borderTop: "2px solid rgba(255,225,73,0.45)",
+            padding: s.openDrawer ? "12px" : "0 12px",
+            boxSizing: "border-box",
           }}
         >
-          <div style={{ position: "relative", width: "100%", height: "100%" }}>
-            {/* Overlays */}
-            {equippedOverlays.map((o) => (
-              <img
-                key={o.cat}
-                src={o.src}
-                alt=""
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  userSelect: "none",
-                  pointerEvents: "none",
-                }}
-              />
-            ))}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: 10,
+            }}
+          >
+            <button
+              onClick={toggleDrawer}
+              style={{
+                width: 160,
+                height: 32,
+                borderRadius: 999,
+                backgroundColor: "transparent",
+                border: "1px solid rgba(255,225,73,0.35)",
+                color: "#FFE149",
+                cursor: "pointer",
+                fontFamily: "serif",
+                letterSpacing: 1,
+                textTransform: "uppercase",
+                fontSize: 12,
+                opacity: 0.9,
+              }}
+            >
+              {s.openDrawer ? "Fermer" : "Ouvrir"}
+            </button>
           </div>
-        </div>
-      </div>
 
-      {/* Drawer bas (items) */}
-      <div
-        style={{
-          height: s.openDrawer ? 120 : 0,
-          transition: "height 220ms ease",
-          overflow: "hidden",
-          backgroundColor: "rgba(0,25,54,0.85)",
-          borderTop: "2px solid rgba(255,225,73,0.45)",
-          padding: s.openDrawer ? "12px" : "0 12px",
-          boxSizing: "border-box",
-        }}
-      >
-        {/* Toggle si tu veux ouvrir/fermer */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginBottom: 10,
-          }}
-        >
-          <button
-            onClick={toggleDrawer}
+          <div
             style={{
-              width: 140,
-              height: 30,
-              borderRadius: 999,
-              backgroundColor: "transparent",
-              border: "1px solid rgba(255,225,73,0.35)",
-              color: "#FFE149",
-              cursor: "pointer",
-              fontFamily: "serif",
-              letterSpacing: 1,
-              textTransform: "uppercase",
-              fontSize: 12,
-              opacity: 0.9,
+              display: "grid",
+              gridTemplateColumns: "42px 1fr 42px",
+              alignItems: "center",
+              gap: 10,
             }}
           >
-            {s.openDrawer ? "Fermer" : "Ouvrir"}
-          </button>
-        </div>
+            <button
+              onClick={() => prevPage(pages.length)}
+              disabled={s.pageIndex === 0}
+              style={{
+                height: 58,
+                borderRadius: 12,
+                backgroundColor: "transparent",
+                border: "1px solid rgba(255,225,73,0.35)",
+                color: "#FFE149",
+                cursor: s.pageIndex === 0 ? "not-allowed" : "pointer",
+                opacity: s.pageIndex === 0 ? 0.35 : 1,
+                fontSize: 24,
+              }}
+              aria-label="Précédent"
+            >
+              ‹
+            </button>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "42px 1fr 42px",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          {/* flèche gauche */}
-          <button
-            onClick={() => prevPage(pages.length)}
-            disabled={s.pageIndex === 0}
-            style={{
-              height: 46,
-              borderRadius: 10,
-              backgroundColor: "transparent",
-              border: "1px solid rgba(255,225,73,0.35)",
-              color: "#FFE149",
-              cursor: s.pageIndex === 0 ? "not-allowed" : "pointer",
-              opacity: s.pageIndex === 0 ? 0.35 : 1,
-              fontSize: 24,
-            }}
-            aria-label="Précédent"
-          >
-            ‹
-          </button>
-
-          {/* items */}
-          <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
-            {page.map((it) => {
-              const isOn = s.equipped[s.category] === it.id;
-              return (
-                <button
-                  key={it.id}
-                  onClick={() => equip(s.category, it.id)}
-                  style={{
-                    width: 96,
-                    height: 64,
-                    borderRadius: 10,
-                    backgroundColor: "white",
-                    border: isOn
-                      ? "2px solid rgba(255,225,73,0.9)"
-                      : "1px solid rgba(0,0,0,0.15)",
-                    cursor: "pointer",
-                    display: "grid",
-                    placeItems: "center",
-                    overflow: "hidden",
-                  }}
-                  aria-label={it.id}
-                >
-                  <img
-                    src={it.thumb}
-                    alt=""
+            <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+              {page.map((it) => {
+                const isOn = s.equipped[s.category] === it.id;
+                return (
+                  <button
+                    key={it.id}
+                    onClick={() => equip(s.category, it.id)}
                     style={{
-                      width: "92%",
-                      height: "92%",
-                      objectFit: "contain",
+                      width: 96,
+                      height: 76,
+                      borderRadius: 12,
+                      backgroundColor: "white",
+                      border: isOn
+                        ? "2px solid rgba(255,225,73,0.9)"
+                        : "1px solid rgba(0,0,0,0.15)",
+                      cursor: "pointer",
+                      display: "grid",
+                      placeItems: "center",
+                      overflow: "hidden",
                     }}
-                  />
-                </button>
-              );
-            })}
-          </div>
+                    aria-label={it.id}
+                  >
+                    <img
+                      src={it.thumb}
+                      alt=""
+                      style={{
+                        width: "92%",
+                        height: "92%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
 
-          {/* flèche droite */}
-          <button
-            onClick={() => nextPage(pages.length)}
-            disabled={s.pageIndex === pages.length - 1}
-            style={{
-              height: 46,
-              borderRadius: 10,
-              backgroundColor: "transparent",
-              border: "1px solid rgba(255,225,73,0.35)",
-              color: "#FFE149",
-              cursor:
-                s.pageIndex === pages.length - 1 ? "not-allowed" : "pointer",
-              opacity: s.pageIndex === pages.length - 1 ? 0.35 : 1,
-              fontSize: 24,
-            }}
-            aria-label="Suivant"
-          >
-            ›
-          </button>
+            <button
+              onClick={() => nextPage(pages.length)}
+              disabled={s.pageIndex === pages.length - 1}
+              style={{
+                height: 58,
+                borderRadius: 12,
+                backgroundColor: "transparent",
+                border: "1px solid rgba(255,225,73,0.35)",
+                color: "#FFE149",
+                cursor:
+                  s.pageIndex === pages.length - 1 ? "not-allowed" : "pointer",
+                opacity: s.pageIndex === pages.length - 1 ? 0.35 : 1,
+                fontSize: 24,
+              }}
+              aria-label="Suivant"
+            >
+              ›
+            </button>
+          </div>
         </div>
       </div>
     </div>
