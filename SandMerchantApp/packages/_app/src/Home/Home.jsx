@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BackgroundLayout } from "../../base/components/BackgroundLayout";
-import { HeaderBar } from "../../base/components/header";
+import { HeaderBar } from "../../base/components/HeaderBar";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { navigate } from "raviger";
 

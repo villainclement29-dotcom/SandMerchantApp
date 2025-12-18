@@ -1,6 +1,6 @@
 import { Bulle } from "./Buble";
-import { HeaderBar } from "./header";
 import { navigate } from "raviger";
+import { HeaderBar } from "./HeaderBar";
 
 const slides = [
   {

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import { navigate } from "raviger";
-import { HeaderBar } from "./header"; // adapte le chemin si besoin
+import { HeaderBar } from "./HeaderBar"; // adapte le chemin si besoin
 import {
   $wardrobe,
   setCategory,

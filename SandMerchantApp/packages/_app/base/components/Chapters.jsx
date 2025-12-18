@@ -1,4 +1,4 @@
-import { HeaderBar } from "./Header"; // adapte le chemin si besoin
+import { HeaderBar } from "./HeaderBar"; // adapte le chemin si besoin
 import { navigate } from "raviger";
 
 const CHAPTERS = [
