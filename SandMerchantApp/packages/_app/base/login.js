@@ -1,4 +1,4 @@
-import { supabase } from "../../../../SandMerchantAvent/packages/util/supabase";
+import { supabase } from "./../util/supabase";
 
 export async function login(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({

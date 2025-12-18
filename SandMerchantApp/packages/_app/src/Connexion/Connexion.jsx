@@ -4,8 +4,8 @@ import { Flex, Box, Button } from "@radix-ui/themes";
 
 import LoginForm from "./Login";
 import RegisterForm from "./Register";
-import { login } from "../../../base/login";
-import { register } from "../../../base/register";
+import { login } from "../../base/login";
+import { register } from "../../base/register";
 
 export default function Connexion() {
   const [mode, setMode] = useState("login"); // 'login' | 'register'

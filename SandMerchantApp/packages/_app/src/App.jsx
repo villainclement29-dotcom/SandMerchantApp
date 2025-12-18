@@ -3,9 +3,12 @@ import Connexion from "./Connexion/Connexion";
 import { FirstConnexion } from "./FirstConnexion/FirstConnexion";
 import { Home } from "./Home/Home";
 import starsBg from "/StarBackground.png";
+import WardrobeBg from "/wardrobe.png";
 import homeBg from "/3VChmbre.jpg"; // <-- ton image large en 3 parties
-import { BackgroundLayout } from "../../base/components/BackgroundLayout";
-import { Chapter } from "../../base/components/Chapter";
+import { BackgroundLayout } from "../base/components/BackgroundLayout";
+import { Chapter } from "../base/components/Chapter";
+import { Chapters } from "../base/components/Chapters";
+import { Wardrobe } from "../base/components/Wardrobe";
 
 export function App() {
   const route = useRoutes({
@@ -22,9 +25,19 @@ export function App() {
     ),
 
     "/home": () => <Home bg={homeBg} />,
-    "/chapter": () => (
+    "/chapter/1": () => (
       <BackgroundLayout bg={starsBg}>
         <Chapter />
+      </BackgroundLayout>
+    ),
+    "/chapters": () => (
+      <BackgroundLayout bg={starsBg}>
+        <Chapters />
+      </BackgroundLayout>
+    ),
+    "/wardrobe": () => (
+      <BackgroundLayout bg={WardrobeBg}>
+        <Wardrobe />
       </BackgroundLayout>
     ),
   });

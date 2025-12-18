@@ -1,4 +1,5 @@
-import { Flex, Box } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
+import { navigate } from "raviger";
 
 export function HeaderBar() {
   return (
@@ -15,26 +16,28 @@ export function HeaderBar() {
     >
       <img
         src="/Menu_burger.png"
-        alt="log acceuil"
+        alt="all the chapters"
         style={{
-          height: "35px",
-          width: "35px",
+          height: "48px",
+          width: "54px",
         }}
+        onClick={() => navigate("/chapters")}
       />
       <img
         src="/Accueil_logo.png"
         alt="log acceuil"
         style={{
-          height: "35px",
-          width: "35px",
+          height: "42px",
+          width: "41px",
         }}
+        onClick={() => navigate("/home")}
       />
       <img
         src="/scan.png"
-        alt="log acceuil"
+        alt="scan 3d"
         style={{
-          height: "30px",
-          width: "30px",
+          height: "41px",
+          width: "41px",
         }}
       />
     </Flex>

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { BackgroundLayout } from "../../../base/components/BackgroundLayout";
-import { HeaderBar } from "../../../base/components/header";
+import { BackgroundLayout } from "../../base/components/BackgroundLayout";
+import { HeaderBar } from "../../base/components/header";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { navigate } from "raviger";
 
@@ -37,7 +37,7 @@ export function Home({ bg }) {
       y: 21,
       w: 18,
       h: 12,
-      onClick: () => navigate("/chapter"),
+      onClick: () => navigate("/chapter/1"),
     },
 
     // Slide 2 (Bedroom)
@@ -99,7 +99,7 @@ export function Home({ bg }) {
             justifyContent: "center",
             gap: 8,
             position: "absolute",
-            bottom: 30,
+            bottom: 40,
             right: 0,
             alignItems: "center",
           }}
@@ -108,7 +108,7 @@ export function Home({ bg }) {
             onClick={prev}
             style={{
               width: 150,
-              height: 40,
+              height: 70,
               borderRadius: "8px",
               backgroundColor: "transparent",
               border: "solid 2px #FFE149ff ",
@@ -132,7 +132,7 @@ export function Home({ bg }) {
             onClick={next}
             style={{
               width: 150,
-              height: 40,
+              height: 70,
               borderRadius: "8px",
               backgroundColor: "transparent",
               border: "solid 2px #FFE149ff ",

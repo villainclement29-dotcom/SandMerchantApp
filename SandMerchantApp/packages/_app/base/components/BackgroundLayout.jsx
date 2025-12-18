@@ -8,6 +8,7 @@ export function BackgroundLayout({
   const style =
     mode === "slider"
       ? {
+          overflow: "hidden",
           minHeight: "100vh",
           backgroundImage: `url(${bg})`,
           backgroundRepeat: "no-repeat",
@@ -15,6 +16,7 @@ export function BackgroundLayout({
           backgroundPosition: `${(slideIndex * 100) / (slides - 1)}% center`, // 0% / 50% / 100%
         }
       : {
+          overflow: "hidden",
           minHeight: "100vh",
           backgroundImage: `url(${bg})`,
           backgroundSize: "cover",

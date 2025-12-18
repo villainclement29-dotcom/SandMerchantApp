@@ -442,6 +442,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@nanostores/react@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nanostores/react/-/react-1.0.0.tgz#5804f925f36e6926c43bc25277b93131644676ed"
+  integrity sha512-eDduyNy+lbQJMg6XxZ/YssQqF6b4OXMFEZMYKPJCCmBevp1lg0g+4ZRi94qGHirMtsNfAWKNwsjOhC+q1gvC+A==
+
 "@radix-ui/colors@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/colors/-/colors-3.0.0.tgz#e8a591a303c44e503bd1212cacf40a09511165e0"
@@ -1901,6 +1906,11 @@ nanoid@^3.3.11:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.11.tgz#4f4f112cefbe303202f2199838128936266d185b"
   integrity sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==
 
+nanostores@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/nanostores/-/nanostores-1.1.0.tgz#29eb39795042682a24dc85eeb24f92618ad6066b"
+  integrity sha512-yJBmDJr18xy47dbNVlHcgdPrulSn1nhSE6Ns9vTG+Nx9VPT6iV1MD6aQFp/t52zpf82FhLLTXAXr30NuCnxvwA==
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -2049,7 +2059,7 @@ raviger@^5.2.0:
   resolved "https://registry.yarnpkg.com/raviger/-/raviger-5.2.0.tgz#024073b17f48ca6e4b8905a800efb11573879e75"
   integrity sha512-9xr+OKl81gyuBY0uHpjPF4utEqu1JV7B3f1H7IxvWEc+GDzwreJGWPfsKH8Dzgggpzp7Cr1VJhpbZxkhGB1Hxg==
 
-react-dom@^19.2.0:
+react-dom@^19.2.3:
   version "19.2.3"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.2.3.tgz#f0b61d7e5c4a86773889fcc1853af3ed5f215b17"
   integrity sha512-yELu4WmLPw5Mr/lmeEpox5rw3RETacE++JgHqQzd2dg+YbJuat3jH4ingc+WPZhxaoFzdv9y33G+F7Nl5O0GBg==
@@ -2088,7 +2098,7 @@ react-style-singleton@^2.2.2, react-style-singleton@^2.2.3:
     get-nonce "^1.0.0"
     tslib "^2.0.0"
 
-react@^19.2.0:
+react@^19.2.3:
   version "19.2.3"
   resolved "https://registry.yarnpkg.com/react/-/react-19.2.3.tgz#d83e5e8e7a258cf6b4fe28640515f99b87cd19b8"
   integrity sha512-Ku/hhYbVjOQnXDZFv2+RibmLFGwFdeeKHFcOTlrt7xplBnya5OGn/hIRDsqDiSUcfORsDC7MPxwork8jBwsIWA==
