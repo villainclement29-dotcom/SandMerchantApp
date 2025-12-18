@@ -9,6 +9,7 @@ import { BackgroundLayout } from "../base/components/BackgroundLayout";
 import { Chapter } from "../base/components/Chapter";
 import { Chapters } from "../base/components/Chapters";
 import { Wardrobe } from "../base/components/Wardrobe";
+import { Bed } from "../base/components/Bed";
 
 export function App() {
   const route = useRoutes({
@@ -28,6 +29,11 @@ export function App() {
     "/chapter/1": () => (
       <BackgroundLayout bg={starsBg}>
         <Chapter />
+      </BackgroundLayout>
+    ),
+    "/bed": () => (
+      <BackgroundLayout bg={starsBg}>
+        <Bed />
       </BackgroundLayout>
     ),
     "/chapters": () => (
