@@ -23,7 +23,7 @@ export function Bed() {
           textAlign: "center",
         }}
       >
-        Faites de beau rêves à demain !
+        Faites de beaux rêves à demain !
       </h1>
       <button
         onClick={() => navigate("/")}
