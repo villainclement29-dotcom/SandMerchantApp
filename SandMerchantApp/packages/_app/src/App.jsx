@@ -4,12 +4,14 @@ import { FirstConnexion } from "./FirstConnexion/FirstConnexion";
 import { Home } from "./Home/Home";
 import starsBg from "/StarBackground.png";
 import WardrobeBg from "/wardrobe.png";
+import roombg from "/room1.png";
 import homeBg from "/3VChmbre.jpg"; // <-- ton image large en 3 parties
 import { BackgroundLayout } from "../base/components/BackgroundLayout";
 import { Chapter } from "../base/components/Chapter";
 import { Chapters } from "../base/components/Chapters";
 import { Wardrobe } from "../base/components/Wardrobe";
 import { Bed } from "../base/components/Bed";
+import { FirstHome } from "./FirstConnexion/FirstHome";
 
 export function App() {
   const route = useRoutes({
@@ -26,6 +28,11 @@ export function App() {
     ),
 
     "/home": () => <Home bg={homeBg} />,
+    "/firsthome": () => (
+      <BackgroundLayout bg={roombg}>
+        <FirstHome />
+      </BackgroundLayout>
+    ),
     "/chapter/1": () => (
       <BackgroundLayout bg={starsBg}>
         <Chapter />

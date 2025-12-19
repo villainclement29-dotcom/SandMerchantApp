@@ -5,42 +5,34 @@ import { BulleStart } from "../../base/components/BulleStart";
 const slides = [
   {
     id: 1,
-    title: "BONSOIR !",
-    text:
-      "J’ai besoin de toi, mon sable magique qui protège les rêves disparaît.\n\n" +
-      "Quand il n’y en a plus assez, le Croque-Mitaine s’approche et transforme les nuits en cauchemars.",
+    title: "Des explications s’imposent !",
+    text: "Voici votre chambre, tous les jours vous pouvez y venir accomplir votre mission quotidienne, elle se divise en 3 parties :",
     cta: "SUITE",
   },
   {
     id: 2,
-    title: "IL FAUT FAIRE VITE.",
+    title: "Les pièces",
     text:
-      "À Noël, il tentera de revenir.\n\n" +
-      "Nous avons 24 nuits pour l’en empêcher, pour cela il faut ramasser un maximum de poussière de sable pour rendre le marchand de sable plus fort lors du combat final.",
+      "- La bibliothèque où vous trouvez une histoire par jour\n\n" +
+      "- Le dressing où vous personnalisez votre personnage \n\n" +
+      "- Le lit qui vous permet de dormir et faire de beaux rêves",
     cta: "SUITE",
   },
   {
     id: 3,
-    title: "VEUX TU M’AIDER ?",
-    text:
-      "Chaque soir, un livre t’attendra dans ta bibliothèque.\n\n" +
-      "À l’intérieur, un chapitre qui te confie une mission pour retrouver des grains de sable et faire un choix crucial.\n\n" +
-      "Ouvre le premier livre ce soir.",
-    cta: "COMMENCER",
+    title: "Les poussières de sable",
+    text: "Elles servent à rendre plus fort le marchand de sable pour qu’il combatte le croque-mitaine le 24 décembre.",
+    cta: "DECOUVRIR",
   },
 ];
 
-export function FirstConnexion() {
+export function FirstHome() {
   return (
     <div
       style={{
         minHeight: "100vh",
         position: "relative",
         overflow: "hidden",
-        backgroundImage: "url(/StarBackground.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
       }}
     >
       <HeaderBar />
@@ -78,7 +70,7 @@ export function FirstConnexion() {
           <BulleStart
             slides={slides}
             startId={1}
-            onOverlayCta={() => navigate("/firsthome")}
+            onOverlayCta={() => navigate("/home")}
           />
         </div>
       </div>
