@@ -6,37 +6,46 @@ const slides = [
   {
     id: 1,
     text:
-      "La nuit était censée être douce.\n\n" +
-      "Une nuit comme celles que le marchand de sable aimait tant : silencieuse, profonde, tapissée de rêves en suspension. Les étoiles scintillaient à peine, comme si elles retenaient leur souffle. Le monde dormait — ou du moins, il aurait dû.",
+      "La nuit n’était pas noire.\n\n" +
+      "Elle était lourde.\n\n" +
+      "Quelque chose pesait sur le ciel, comme si l’air lui-même hésitait à bouger. Les étoiles étaient là, mais lointaines, froides, trop immobiles. Dans les maisons, les enfants dormaient — ou du moins essayaient.",
     cta: "LIRE LA SUITE",
   },
   {
     id: 2,
     text:
-      "Mais quelque chose n’allait pas.\n\n" +
-      "Au-dessus des nuages, là où le ciel devient presque liquide, le marchand de sable s’était arrêté. Son manteau d’or flottait derrière lui, immobile, figé par une inquiétude nouvelle. Autour de ses mains, le sable des rêves tremblait, incapable de prendre forme.",
+      "Leurs respirations n’avaient plus le même rythme. Trop rapides. Trop irrégulières. Comme si les rêves, au lieu de les porter, leur résistaient.Le Marchand de Sable le sentit avant de le voir.\n\n" +
+      "Il se posa sur le rebord d’un toit, sans bruit, comme il l’avait fait des milliers de fois. Le geste était précis, maîtrisé.",
     cta: "SUITE",
   },
   {
     id: 3,
     text:
-      "Les habituelles constellations de songes — dragons rieurs, îles volantes, forêts chantantes — refusaient de naître.\n\n" +
-      "Il ferma les yeux..\n\n" +
-      "D’ordinaire, il n’avait pas besoin de regarder le monde pour le comprendre.",
+      "Mais cette nuit, son corps mit une fraction de seconde de trop à s’immobiliser. Une infime hésitation. Presque imperceptible.\n\n" +
+      "Sauf pour lui.\n\n" +
+      "Il ouvrit son sac, Le sable était là. \n\n" +
+      "Mais il n’était plus vivant.",
     cta: "SUITE",
   },
   {
     id: 4,
-    text: " ...... ",
+    text: "Autrefois, chaque grain vibrait d’une chaleur douce, comme un souvenir heureux qu’on ne saurait expliquer. Ce soir, le sable coulait entre ses doigts sans résistance, sans lumière, sans chant. Il n’était pas mort — non — mais vidé. Épuisé",
     cta: "SUITE",
   },
   {
     id: 5,
     text:
-      "Quand tu ouvris les yeux, le monde semblait inchangé.\n\n" +
-      "Mais au creux de ta main, il restait une fine poussière dorée.\n\n" +
-      "La nuit n’était pas finie.\n\n" +
-      "Et l’histoire ne faisait que commencer",
+      "— Ils ne rêvent plus comme avant… murmura le Marchand.\n\n" +
+      "Il leva la tête, Et posa les yeux sur toi.\n\n" +
+      "Tu n’étais pas censé être là. Pas encore. Mais certains enfants — et certains adultes — sentent quand quelque chose se fissure. Tu faisais partie de ceux-là.",
+    cta: "SUITE",
+  },
+  {
+    id: 6,
+    text:
+      "— Je ne peux pas réparer ça seul, dit-il enfin.\n\n" +
+      "— Et je ne peux pas te promettre que ce que nous ferons sera juste.Il referma lentement son sac.\n\n" +
+      "— Dis-moi…",
     cta: "SUITE",
     // ✅ c’est CETTE slide qui déclenche les choix (pas besoin d’être la dernière)
     choices: [
