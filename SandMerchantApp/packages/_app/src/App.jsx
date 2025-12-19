@@ -17,12 +17,6 @@ export function App() {
   const route = useRoutes({
     "/": () => (
       <BackgroundLayout bg={starsBg}>
-        <Connexion />
-      </BackgroundLayout>
-    ),
-
-    "/FirstConnexion": () => (
-      <BackgroundLayout bg={starsBg}>
         <FirstConnexion />
       </BackgroundLayout>
     ),
