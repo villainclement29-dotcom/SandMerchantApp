@@ -62,6 +62,9 @@ export function BulleStart({
     if (baseSlide.cta === "COMMENCER") {
       return onOverlayCta?.(baseSlide);
     }
+    if (baseSlide.cta === "DECOUVRIR") {
+      return onOverlayCta?.(baseSlide);
+    }
     next();
   };
 
